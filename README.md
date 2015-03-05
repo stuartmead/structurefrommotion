@@ -18,7 +18,7 @@ Compiling and using the plugin
 ------------------------------
 1. Download and install [CSIRO Workspace](https://research.csiro.au/workspace/download/)
 3. Checkout the fork of the CSIRO pointcloudplugin repository from [here] (https://github.com/stuartmead/pointcloudplugin) and follow the build instructions.
-4. Download and install [OpenCV 2.4] (http://opencv.org) (or build a version yourself)
+4. Download and install [OpenCV 2.4] (http://opencv.org) (or build a version yourself), ensure that you add the opencv/bin directory to your PATH variable.
 5. Check out this repository
 5. Launch CMake from Workspace's Development menu to configure and generate the project. This needs to be done from within Workspace rather than running CMake directly as some key environment variables get setup.
 6. Compile the project
