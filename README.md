@@ -4,7 +4,7 @@ Structure-from-Motion plugin for CSIRO Workspace
 This project is a plugin for the [CSIRO Workspace](https://research.csiro.au/workspace/) scientific workflow framework. Its purpose is to utilise open source libraries and methods for photogrammetry and point cloud processing.
 This project relies on [OpenCV] (http://opencv.org) and [pointcloudplugin] (https://github.com/csiro-workspace/pointcloudplugin). 
 
-This plugin is still in a development phase, but can be used to perform basic photogrammetry tasks and mesh generation. For more details see the following paper:
+This plugin is still in a development phase, but can be used to perform basic photogrammetry tasks and mesh generation. For more details see the following paper:  
 Mead, Stuart R., et al. "A Distributed Computing Workflow for Modelling Environmental Flows in Complex Terrain." Environmental Software Systems. Infrastructures, Services and Applications. Springer International Publishing, 2015. 321-332.
 
 Feedback and contributions are more than welcome to help expand its capabilities. 
