@@ -11,8 +11,9 @@ Feedback and contributions are more than welcome to help expand its capabilities
 
 Contributors
 ------------
-- Stuart Mead -  
-Risk Frontiers, Dept. of Environmental Sciences, Macquarie University, North Ryde NSW and CSIRO Digital Productivity, Clayton VIC
+- Stuart Mead   
+Risk Frontiers, Dept. of Environmental Sciences, Macquarie University, North Ryde NSW  
+CSIRO Digital Productivity, Clayton VIC
 
 Compiling and using the plugin
 ------------------------------
