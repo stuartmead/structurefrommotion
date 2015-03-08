@@ -18,10 +18,12 @@ Compiling and using the plugin
 ------------------------------
 1. Download and install [CSIRO Workspace](https://research.csiro.au/workspace/download/)
 3. Checkout the fork of the CSIRO pointcloudplugin repository from [here] (https://github.com/stuartmead/pointcloudplugin) and follow the build instructions.
-4. Download and install [OpenCV 2.4] (http://opencv.org) (or build a version yourself), ensure that you add the opencv/bin directory to your PATH variable.
-5. Check out this repository
-5. Launch CMake from Workspace's Development menu to configure and generate the project. This needs to be done from within Workspace rather than running CMake directly as some key environment variables get setup.
-6. Compile the project
+4. Checkout [OpenCV] (https://github.com/Itseez/opencv) and [OpenCV Contrib modules] (https://github.com/Itseez/opencv_contrib) and build them yourself. You only need the opencv_xfeatures2d module, so I would recommend turning everything else off (additionally turning off the CUDA modules will save a lot of compilation time).
+5. Add the opencv/bin directory to your PATH variable.
+6. Check out this repository
+7. Launch CMake from Workspace's Development menu to configure and generate the project. This needs to be done from within Workspace rather than running CMake directly as some key environment variables get setup.
+8. Make the variable OpenCV_DIR point to your OpenCV build directory (the one with OpenCVConfig.cmake)
+9. Make and compile the project
 7. Add the plugin to Workspace through Settings>Configure application>Plugins
 8. Restart Workspace and a Structure from motion group should be visible in the operation catalogue.
 
@@ -77,5 +79,4 @@ Third Party Components
 ----------------------
 The following third party components are distributed with the Software. You agree to comply with the license terms for these components as part of accessing the Software. Other third party software may also be identified in separate files distributed with the Software.
 
-This project is designed to be built against [OpenCV] (http://opencv.org), which is currently licensed under a 3-clause BSD License. Note that this plugin uses SIFT feature detection, which is subject to its own licence for non-commercial use only, see [this page] (http://www.cs.ubc.ca/~lowe/keypoints/) for more details on SIFT.
-A more commercial-friendly feature matching algorithim, [BRISK] (http://www.asl.ethz.ch/people/lestefan/personal/BRISK) is included in the project, which is licensed under a 3-clause BSD licence
+This project is designed to be built against [OpenCV] (http://opencv.org), which is currently licensed under a 3-clause BSD License. Note that this plugin uses SIFT feature detection, which is subject to its own licence for non-commercial use only, see [this page] (http://www.cs.ubc.ca/~lowe/keypoints/) for more details on SIFT. A more commercial-friendly feature matching algorithim, [BRISK] (http://www.asl.ethz.ch/people/lestefan/personal/BRISK) is included in the project, which is licensed under a 3-clause BSD licence
