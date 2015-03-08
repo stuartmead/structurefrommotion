@@ -31,14 +31,6 @@ Instructions for plugin usage
 -----------------------------
 Examples and usage instructions are currently being written and will be included in the Wiki.
 
-About CSIRO Workspace
----------------------
-Workspace is a powerful scientific application framework and workflow editor which has been in development for over 7 years. Originally designed to construct workflows for scientists in the computational fluid dynamics space, Workspace recognises the importance of interactivity, visualisation, scalability, and ease-of-use in a scientific workflow. It ships with out of the box support for things like mesh processing, interactive 3D visualisation, plotting, networking and database access and is designed to be easily extended through plugins. More than just a workflow editor, Workspace offers a natural path from early code development as part of a research workflow right through to the development of standalone applications for deployment to a collaborator or external client.
-
-Workspace is developed by the Computational Modelling and Simulation Group of Australia’s Commonwealth Scientific and Industrial Research Organisation (CSIRO). Workspace has been developed with support from CSIRO eResearch, Computational and Simulation Sciences and the Digital Productivity Flagship.
-
-For more details or to contact the team see the [Workspace research page](https://research.csiro.au/workspace/).
-
 License
 -------
 Copyright (c) 2015, Stuart Mead - Risk Frontiers, Macquarie University
