@@ -45,8 +45,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Workspace/DataExecution/DataObjects/datafactorytraits.h"
 #include "Workspace/DataExecution/DataObjects/objectgroup.h"
 #include "Workspace/DataExecution/DataObjects/derivedtobaseadaptor.h"
+#include "Workspace/DataExecution/DataObjects/enumtointadaptor.h"
 
 #include "opencv2/core/core.hpp"
+#include "opencv2/core/base.hpp"
 #include "opencv2/opencv.hpp"
 #include "opencv2/features2d/features2d.hpp"
 
@@ -57,6 +59,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace RF
 {
+
+     enum NormTypes {
+                 NORM_L1,
+                 NORM_L2,
+                 NORM_HAMMING,
+                 NORM_HAMMING2
+                 };
+
     class WSMatImpl;
 
     /**
@@ -94,6 +104,20 @@ namespace RF
     };
 }
 
+namespace CSIRO
+{
+    namespace DataExecution
+    {
+        template <> inline void getEnumNames<RF::NormTypes>(QStringList& names)
+        {
+            names.push_back("L1");
+            names.push_back("L2");
+            names.push_back("HAMMING");
+            names.push_back("HAMMING2");
+        }
+    }
+}
+
 DECLARE_WORKSPACE_DATA_FACTORY(RF::WSMat, RF_API)
 DECLARE_WORKSPACE_DERIVEDTOBASEADAPTOR(RF::WSMat, CSIRO::DataExecution::ObjectGroup, RF_API)
 
@@ -101,6 +125,10 @@ DECLARE_WORKSPACE_DERIVEDTOBASEADAPTOR(RF::WSMat, CSIRO::DataExecution::ObjectGr
 DECLARE_WORKSPACE_DATA_FACTORY(cv::KeyPoint, CV_EXPORTS_W_SIMPLE)
 DECLARE_WORKSPACE_DATA_FACTORY(std::vector<cv::KeyPoint>, CV_EXPORTS_W_SIMPLE)
 DECLARE_WORKSPACE_DATA_FACTORY(std::vector<cv::DMatch>, CV_EXPORTS_W_SIMPLE)
+
+//Enums
+DECLARE_WORKSPACE_DATA_FACTORY(RF::NormTypes, RF_API)
+DECLARE_WORKSPACE_ENUMTOINTADAPTOR(RF::NormTypes, RF_API)
 
 #endif
 

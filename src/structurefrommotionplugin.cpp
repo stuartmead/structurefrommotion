@@ -37,6 +37,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Workspace/DataExecution/DataObjects/datafactorytraits.h"
 #include "Workspace/DataExecution/Operations/operationfactorytraits.h"
 
+#include "Workspace/DataExecution/DataObjects/typeddatafactory.h"
+#include "Workspace/Widgets/enumcomboboxfactory.h"
+
 #include "structurefrommotionplugin.h"
 #include "filesindirectory.h"
 #include "matchfeatures.h"
@@ -44,6 +47,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "calibratecamera.h"
 #include "briskdetection.h"
 #include "siftdetection.h"
+
+#include "opencv2/core/base.hpp"
 
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
@@ -108,8 +113,7 @@ namespace RF
         addFactory(CSIRO::DataExecution::DataFactoryTraits<cv::KeyPoint>::getInstance());
         addFactory(CSIRO::DataExecution::DataFactoryTraits<std::vector<cv::KeyPoint> >::getInstance());
         addFactory(CSIRO::DataExecution::DataFactoryTraits<std::vector<cv::DMatch> >::getInstance());
-        //addFactory(CSIRO::DataExecution::DataFactoryTraits<OpenCVMat>::getInstance());
-       
+        
 
         // Add your operation factories like this:
         //addFactory( CSIRO::DataExecution::OperationFactoryTraits<MyOperation>::getInstance() );
@@ -118,6 +122,12 @@ namespace RF
         addFactory(CSIRO::DataExecution::OperationFactoryTraits<CalibrateCamera>::getInstance());
         addFactory(CSIRO::DataExecution::OperationFactoryTraits<MatchFeatures>::getInstance());
         addFactory(CSIRO::DataExecution::OperationFactoryTraits<FilesInDirectory>::getInstance());
+
+         // Add your widget factories like this:
+        //addFactory( MyNamespace::MyWidgetFactory::getInstance() );
+        static CSIRO::Widgets::EnumComboBoxFactory<RF::NormTypes> normTypesWidgetFact;
+        addFactory(normTypesWidgetFact);
+
 
         return true;
     }

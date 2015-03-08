@@ -50,8 +50,6 @@ else()
 	include(${QT_USE_FILE)
 endif()
 
-add_subdirectory(brisk)
-
 include_directories(${STRUCTUREFROMMOTION_SOURCE_DIR} )
 if (NOT ${STRUCTUREFROMMOTION_SOURCE_DIR} STREQUAL ${STRUCTUREFROMMOTION_BINARY_DIR})
     include_directories(${STRUCTUREFROMMOTION_BINARY_DIR})
@@ -118,10 +116,10 @@ qtx_wrap_cpp(MOC_SOURCES ${MOC_HEADERS})
 
 add_definitions(-DSTRUCTUREFROMMOTION_PLUGIN_VERSION=${STRUCTUREFROMMOTION_PLUGIN_VERSION})
 
-include_directories(${OpenCV_INCLUDE_DIRS} ${STRUCTUREFROMMOTION_SOURCE_DIR}/brisk/thirdparty/agast/include)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_library(structurefrommotionplugin ${SOURCES} ${HEADERS} ${MOC_SOURCES})
-target_link_libraries(structurefrommotionplugin meshplugin renderingplugin workspace brisk agast ${OpenCV_LIBS} ${QT_LIBRARIES})
+target_link_libraries(structurefrommotionplugin meshplugin renderingplugin workspace ${OpenCV_LIBS} ${QT_LIBRARIES})
 
 set_target_properties(structurefrommotionplugin PROPERTIES
     DEFINE_SYMBOL RF_EXPORT

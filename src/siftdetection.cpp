@@ -48,13 +48,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "siftdetection.h"
 #include "wsmat.h"
 
-#include "opencv2/opencv.hpp"
-#include "opencv2/core/core.hpp"
-#include "opencv2/features2d/features2d.hpp"
-#include "opencv2/nonfree/features2d.hpp"
-#include "opencv2/ocl/ocl.hpp"//ocl
-#include "opencv2/nonfree/ocl.hpp"//ocl
-#include "opencv2/nonfree/nonfree.hpp"
+#include "opencv2/core.hpp"
+#include "opencv2/features2d.hpp"
+#include "opencv2/xfeatures2d.hpp"
 
 namespace RF
 {
@@ -72,29 +68,25 @@ namespace RF
 
         // Data objects
         CSIRO::DataExecution::TypedObject< QString >  dataImage_;
-        //CSIRO::DataExecution::TypedObject< QString >  dataImage2_;
-        CSIRO::DataExecution::TypedObject< int >      dataHessianFeats_;
-        //CSIRO::DataExecution::TypedObject< double >   dataDistanceRatio_;
-        CSIRO::DataExecution::TypedObject< bool >     dataOpenCL_;
-        //CSIRO::DataExecution::TypedObject< QImage >  dataOutImage_;
+        CSIRO::DataExecution::TypedObject< int >      dataNfeatures_;
+        CSIRO::DataExecution::TypedObject< int >      dataNoctavelayers_;
+        CSIRO::DataExecution::TypedObject< double >   dataContrastthreshold_;
+        CSIRO::DataExecution::TypedObject< double >   dataEdgethreshold_;
+        CSIRO::DataExecution::TypedObject< double >   dataSigma_;
         CSIRO::DataExecution::TypedObject< bool >     dataWriteSIFT_;
         CSIRO::DataExecution::TypedObject<std::vector<cv::KeyPoint> > dataKeypoint_;
-        //CSIRO::DataExecution::TypedObject<cv::KeyPoint> dataKeypoint2_;
         CSIRO::DataExecution::TypedObject<WSMat>        dataDescriptor_;
-        //CSIRO::DataExecution::TypedObject<WSMat>        dataDescriptor2_;
 
         // Inputs and outputs
         CSIRO::DataExecution::InputScalar inputImage_;
-        //CSIRO::DataExecution::InputScalar inputImage2_;
-        CSIRO::DataExecution::InputScalar inputHessianFeats_;
-        //CSIRO::DataExecution::InputScalar inputDistanceRatio_;
-        CSIRO::DataExecution::InputScalar inputOpenCL_;
+        CSIRO::DataExecution::InputScalar inputNfeatures_;
+        CSIRO::DataExecution::InputScalar inputNoctaveLayers_;
+        CSIRO::DataExecution::InputScalar inputContrastthreshold_;
+        CSIRO::DataExecution::InputScalar inputEdgethreshold_;
+        CSIRO::DataExecution::InputScalar inputSigma_;
         CSIRO::DataExecution::InputScalar inputWriteSIFT_;
-        //CSIRO::DataExecution::Output      outputImage_;
         CSIRO::DataExecution::Output       outputKeypoint_;
-        //CSIRO::DataExecution::Output       outputKeypoint2_;
         CSIRO::DataExecution::Output       outputDescriptor_;
-        //CSIRO::DataExecution::Output       outputDescriptor2_;
 
 
         SiftDetectionImpl(SiftDetection& op);
@@ -110,26 +102,34 @@ namespace RF
     SiftDetectionImpl::SiftDetectionImpl(SiftDetection& op) :
         op_(op),
         dataImage_(),
-        //dataImage2_(),
-        dataHessianFeats_(400),
-        //dataDistanceRatio_(0.8),
-        dataOpenCL_(false),
-        dataWriteSIFT_(true),
-        //dataOutImage_(),
+        dataNfeatures_(0),
+        dataNoctavelayers_(3),
+        dataContrastthreshold_(0.04),
+        dataEdgethreshold_(10),
+        dataSigma_(1.6),
+        dataWriteSIFT_(false),
         dataKeypoint_(),
-        //dataKeypoint2_(),
         dataDescriptor_(),
-        //dataDescriptor2_(),
         inputImage_("Image", dataImage_, op_),
-        //inputImage2_("Image2", dataImage2_, op_),
-        inputHessianFeats_("Hessian threshold", dataHessianFeats_, op_),
-        //inputDistanceRatio_("Lowe distance ratio", dataDistanceRatio_, op_),
-        inputOpenCL_("Use openCL feature detection", dataOpenCL_, op_),
+        inputNfeatures_("Number of features", dataNfeatures_, op_),
+        inputNoctaveLayers_("Number of octave layers", dataNoctavelayers_, op_),
+        inputContrastthreshold_("Contrast Threshold", dataContrastthreshold_, op_),
+        inputEdgethreshold_("Edge Threshold", dataEdgethreshold_, op_),
+        inputSigma_("Gaussian sigma", dataSigma_, op_),
         inputWriteSIFT_("Write out SIFT files for VSFM", dataWriteSIFT_, op_),
-        //outputImage_("Out Image", dataOutImage_, op_)
         outputKeypoint_("Keypoints", dataKeypoint_, op_),
         outputDescriptor_("Keypoint Descriptors", dataDescriptor_, op_)
     {
+        inputNfeatures_.setDescription("The number of best features to retain. The features are ranked by their scores \
+                                       (measured in SIFT algorithm as the local contrast)");
+        inputNoctaveLayers_.setDescription("The number of layers in each octave. 3 is the value used in D. Lowe paper. \
+                                           The number of octaves is computed automatically from the image resolution.");
+        inputContrastthreshold_.setDescription("The contrast threshold used to filter out weak features in semi-uniform \
+                                               (low-contrast) regions. The larger the threshold, the less features are produced by the detector.");
+        inputEdgethreshold_.setDescription("The threshold used to filter out edge-like features. Note that the its meaning is different from \
+                                          the contrastThreshold, i.e. the larger the edgeThreshold, the less features are filtered out (more features are retained).");
+        inputSigma_.setDescription("The sigma of the Gaussian applied to the input image at the octave \#0. If your image \
+                                   is captured with a weak camera with soft lenses, you might want to reduce the number.");
         inputWriteSIFT_.setDescription("Writes out a .sift file for use in visualSFM in the same folder as the images");
     }
 
@@ -140,61 +140,24 @@ namespace RF
     bool SiftDetectionImpl::execute()
     {
         QString& image = *dataImage_;
-        //QString& image2 = *dataImage2_;
-        //QImage& outimage = *dataOutImage_;
         WSMat& outDescriptors = *dataDescriptor_;
         
-        Mat img1 = imread(image.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
-        //Mat img2 = imread(image2.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
-        //Mat outimg;
-        
-        std::vector<KeyPoint>& keypoints = *dataKeypoint_;
-        //std::vector<std::vector<DMatch>> matches;
-        //std::vector<DMatch> goodmatches;
-        
-        if (*dataOpenCL_)
-        {
-            std::cout << QString("WARNING: OpenCL is a bit ropey, tends to crash your video card. Don't blame me if you didn't update your drivers.") + "\n";
-            ocl::DeviceType dt = ocl::Context::getContext()->getDeviceInfo().deviceType;
-            std::cout << QString("OpenCL device type is %1").arg(dt) + "\n";
-            // OCL based SURF detection
-            ocl::SURF_OCL detector(*dataHessianFeats_,4,2,true,0.01f,false);
-            ocl::oclMat oclimg1;
-            //ocl::oclMat oclimg2;
-            oclimg1.upload(img1);
-            //oclimg2.upload(img2);
-        
-            ocl::oclMat ocldesc;
-            //ocl::oclMat ocldesc2;
-            ocl::oclMat mask;
-            detector(oclimg1,mask,keypoints,ocldesc);
-            ocldesc.download(outDescriptors);
-            std::cout << QString("Descriptor byte size is %1").arg(detector.descriptorSize()) + "\n";
-            //detector(oclimg2,mask,keypoints2,ocldesc2);
-            //Run bruteforce matching
-            //ocl::BFMatcher_OCL matcher(NORM_L2);
-            //matcher.knnMatch(ocldesc1,ocldesc2,matches,2);
-        }
-        else
-        {
-            //Detect features
-            SurfFeatureDetector detector(*dataHessianFeats_);
-            detector.detect(img1,keypoints);
-            //detector.detect(img2,keypoints2);
-        
-            //Extract descriptions
-            SurfDescriptorExtractor extractor(*dataHessianFeats_,4,2,true,0);
-            
-            extractor.compute(img1, keypoints, outDescriptors);
-            std::cout << QString("Descriptor byte size is %1").arg(extractor.descriptorSize()) + "\n";
-            //Mat descriptor1, descriptor2;
-            //extractor.compute(img1,keypoints1,descriptor1);
-            //extractor.compute(img2,keypoints2,descriptor2);
+        Mat img1 = imread(image.toStdString(), IMREAD_GRAYSCALE);
                 
-            //BFMatcher matcher(NORM_L2);
-            //matcher.knnMatch(descriptor1,descriptor2,matches,2);
+        std::vector<KeyPoint>& keypoints = *dataKeypoint_;
+        
+        
+        //Detect features
+        cv::Ptr<cv::xfeatures2d::SIFT> detector = cv::xfeatures2d::SIFT::create(*dataNfeatures_,*dataNoctavelayers_,*dataContrastthreshold_,*dataEdgethreshold_,*dataSigma_);
 
-        }
+        detector->detect(img1,keypoints);
+            
+        //Extract descriptions
+        detector->compute(img1, keypoints, outDescriptors);
+
+        std::cout << QString("Descriptor byte size is %1").arg(detector->descriptorSize()) + "\n";
+        std::cout << QString("Number of descriptors is %1, number of keypoints is %2").arg(outDescriptors.rows).arg(keypoints.size()) +"\n";
+        
 
         if (*dataWriteSIFT_)
         {
@@ -240,22 +203,6 @@ namespace RF
             fclose(sift1);
         }
         
-        /*    //Nearest neighbour matching - see Frank Lowe's paper
-            for (int i = 0; i < matches.size(); ++i)
-            {
-                if (matches[i][0].distance < *dataDistanceRatio_ * matches[i][1].distance)
-                {
-                    goodmatches.push_back(matches[i][0]);
-                }
-            }
-        
-        drawMatches(img1, keypoints1, img2, keypoints2,goodmatches,outimg); 
-        cvtColor(outimg,outimg,CV_BGR2RGB);
-        QImage qtmp((uchar*) outimg.data, outimg.cols, outimg.rows, outimg.step, QImage::Format_RGB888);
-        QImage qtmp2(qtmp);
-        qtmp2.detach();
-        outimage = qtmp2;
-        */
        return true;
     }
 

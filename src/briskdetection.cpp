@@ -45,10 +45,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Workspace/DataExecution/Operations/typedoperationfactory.h"
 
 #include "opencv2/opencv.hpp"
-#include "opencv2/core/core.hpp"
-//For matching
-#include "opencv2/ocl/ocl.hpp"
-#include "brisk/include/brisk/brisk.h"
+#include "opencv2/core.hpp"
+#include "opencv2/features2d.hpp"
 
 #include "structurefrommotionplugin.h"
 #include "briskdetection.h"
@@ -132,24 +130,22 @@ namespace RF
     {
         QString& image        = *dataImage_;
         WSMat& outDescriptors = *dataDescriptor_;
-        std::vector<KeyPoint>& keypoints = *dataKeypoint_;
+        std::vector<cv::KeyPoint>& keypoints = *dataKeypoint_;
         
-        //This is a bad implementation at the moment - return false
-        //std::cout << QString("WARNING: OpenCV brisk detection is terrible at the moment, using a prebuilt implementation") + "\n";
+        std::vector<cv::KeyPoint> kp;
 
+        const Mat img1 = imread(image.toStdString(), IMREAD_GRAYSCALE);
 
-        Mat img1 = imread(image.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
-
-        BriskFeatureDetector briskFD(*dataThresh_,*dataOctave_);
-                
         //Initialise brisk detector
-
-        
+        Ptr<BRISK> detector = BRISK::create();
+        detector->create(*dataThresh_,*dataOctave_);
+                
         //Run detector and extract descriptors
-        briskFD.detect(img1,keypoints);
+        detector->detect(img1, keypoints);
+        
+
         //Extract descriptors
-        BriskDescriptorExtractor briskDE;
-        briskDE.compute(img1,keypoints,outDescriptors);
+        detector->compute(img1,keypoints,outDescriptors);
                 
         if (*dataWriteSIFT_)
         {
@@ -181,11 +177,8 @@ namespace RF
                 float loc[5] = {x,y,col,scale,orientation};
                 fwrite(loc, sizeof(float), 5, sift1);
             }
-            const int descSize = briskDE.descriptorSize();
-            //std::cout << QString("Descriptor byte size is %1").arg(briskDE.descriptorSize()) + "\n";
-            //Descriptor
-            //std::cout << QString("Number of descriptors is %1, number of keypoints is %2").arg(outDescriptors.rows).arg(keypoints.size()) +"\n";
-            //std::cout << QString("Descriptor rows is %1, descriptors columns is %2").arg(outDescriptors.rows).arg(outDescriptors.cols) + "\n";
+            const int descSize = detector->descriptorSize();
+
             for (int i = 0; i < outDescriptors.rows; ++i)
             {
                 if (*data128bit_)
@@ -205,8 +198,6 @@ namespace RF
             fclose(sift1);
         }
         
-
-
         return true;
     }
 

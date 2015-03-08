@@ -45,10 +45,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Workspace/DataExecution/Operations/typedoperationfactory.h"
 
 #include "opencv2/opencv.hpp"
-#include "opencv2/core/core.hpp"
-#include "opencv2/features2d/features2d.hpp"
-#include "opencv2/nonfree/features2d.hpp"
-#include "opencv2/ocl/ocl.hpp"//ocl
+#include "opencv2/core.hpp"
+#include "opencv2/features2d.hpp"
+
 
 
 #include "wsmat.h"
@@ -75,8 +74,8 @@ namespace RF
         CSIRO::DataExecution::TypedObject< RF::WSMat >                  dataDescriptors1_;
         CSIRO::DataExecution::TypedObject< std::vector<cv::KeyPoint> >  dataKeypoints2_;
         CSIRO::DataExecution::TypedObject< RF::WSMat >                  dataDescriptors2_;
+        CSIRO::DataExecution::TypedObject< RF::NormTypes>               dataNormType_;
         CSIRO::DataExecution::TypedObject< double >                     dataDistanceRatio_;
-        CSIRO::DataExecution::TypedObject< bool >                       dataOpenCL_;
         CSIRO::DataExecution::TypedObject< std::vector<cv::DMatch> >    dataGoodMatches_;
         CSIRO::DataExecution::TypedObject< bool >                       dataDrawMatches_;
         CSIRO::DataExecution::TypedObject< QString >                    dataImage1_;
@@ -92,8 +91,8 @@ namespace RF
         CSIRO::DataExecution::InputScalar inputDescriptors1_;
         CSIRO::DataExecution::InputScalar inputKeypoints2_;
         CSIRO::DataExecution::InputScalar inputDescriptors2_;
+        CSIRO::DataExecution::InputScalar inputNormTypes_;
         CSIRO::DataExecution::InputScalar inputDistanceRatio_;
-        CSIRO::DataExecution::InputScalar inputOpenCL_;
         CSIRO::DataExecution::Output      outputGoodMatches_;
         CSIRO::DataExecution::InputScalar  inputDrawMatches_;
         CSIRO::DataExecution::InputScalar inputImage1_;
@@ -119,8 +118,8 @@ namespace RF
         dataDescriptors1_(),
         dataKeypoints2_(),
         dataDescriptors2_(),
-        dataDistanceRatio_(),
-        dataOpenCL_(false),
+        dataNormType_(RF::NormTypes::NORM_HAMMING2),
+        dataDistanceRatio_(0.7),
         dataGoodMatches_(),
         dataDrawMatches_(false),
         dataImage1_(),
@@ -132,8 +131,8 @@ namespace RF
         inputDescriptors1_("Descriptors 1", dataDescriptors1_, op_),
         inputKeypoints2_("Keypoints 2", dataKeypoints2_, op_),
         inputDescriptors2_("Descriptors 2", dataDescriptors2_, op_),
+        inputNormTypes_("Distance measurement", dataNormType_, op_),
         inputDistanceRatio_("Lowe Distance Ratio", dataDistanceRatio_, op_),
-        inputOpenCL_("Use openCL feature matching", dataOpenCL_, op_),
         outputGoodMatches_("Good Matches", dataGoodMatches_, op_),
         inputDrawMatches_("Draw Matches", dataDrawMatches_, op_),
         inputImage1_("Image 1", dataImage1_, op_),
@@ -143,6 +142,8 @@ namespace RF
         outputMatchFileString_("Match String", dataMatchFileString_, op_)
     {
         inputWriteMatches_.setDescription("Writes out a QString specifying image matches for use in VSFM");
+        inputNormTypes_.setDescription("Distance measurement to be used, L2 should be used for SIFT type feature matches \
+                                       HAMMING and HAMMING2 should be used for binary string descriptors (BRISK)");
     }
 
 
@@ -156,6 +157,7 @@ namespace RF
         std::vector<cv::KeyPoint>& keypoints2    = *dataKeypoints2_;
         RF::WSMat&                 descriptors2  = *dataDescriptors2_;
         double&                    distanceRatio = *dataDistanceRatio_;
+        
         std::vector<cv::DMatch>&   goodMatches   = *dataGoodMatches_;
         QString&                   image1        = *dataImage1_;
         QString&                   image2        = *dataImage2_;
@@ -166,25 +168,28 @@ namespace RF
         
         std::vector<std::vector<cv::DMatch> > matches;
 
-        if (*dataOpenCL_)
-        {
-            //std::cout << QString("WARNING: OpenCL is a bit ropey, tends to crash your video card. Don't blame me if you didn't update your drivers.") + "\n";
-            ocl::DeviceType dt = ocl::Context::getContext()->getDeviceInfo().deviceType;
-            //std::cout << QString("OpenCL device type is %1").arg(dt) + "\n";
-            //Run matchings
-            ocl::BFMatcher_OCL matcher(NORM_HAMMING2);
-            ocl::oclMat ocldesc1, ocldesc2;
-            ocldesc1.upload(descriptors1);
-            ocldesc2.upload(descriptors2);
-            matcher.knnMatch(ocldesc1, ocldesc2, matches,2);
-        }
-        else
-        {
-            cv::BFMatcher matcher(NORM_HAMMING2);
-            matcher.knnMatch(descriptors1,descriptors2,matches,2);
+        int normType;
 
+        if (*dataNormType_ == RF::NormTypes::NORM_L1)
+        {
+            normType = 2;
+        } 
+        else if (*dataNormType_ == RF::NormTypes::NORM_L2)
+        {
+            normType = 4;
+        }
+        else if (*dataNormType_ == RF::NormTypes::NORM_HAMMING)
+        {
+            normType = 6;
+        }
+        else if (*dataNormType_ == RF::NormTypes::NORM_HAMMING2)
+        {
+            normType = 7;
         }
 
+        cv::BFMatcher matcher(normType);
+        matcher.knnMatch(descriptors1,descriptors2,matches,2);
+        std::cout << QString("Completed nearest-neighbor matching") + "\n";
         //Nearest neighbour filtering - see Frank Lowe's paper
         for (int i = 0; i < matches.size(); ++i)
         {
@@ -193,8 +198,6 @@ namespace RF
                 goodMatches.push_back(matches[i][0]);
             }
         }
-
-        //std::cout << QString("Found %1 matches").arg(goodMaiftches.size()) + "\n";
 
         if (*dataDrawMatches_)
         {
@@ -207,7 +210,7 @@ namespace RF
                 WSMat outimg;
                 cv::Mat img1 = imread(image1.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
                 cv::Mat img2 = imread(image2.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
-                drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, outimg, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+                drawMatches(img1, keypoints1, img2, keypoints2, goodMatches, outimg, Scalar::all(-1), Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
                 cvtColor(outimg,outimg,CV_BGR2RGB);
                 imageMatches = outimg.convertToQImage();
             }
@@ -229,7 +232,6 @@ namespace RF
              //List of 0 based feature indices in image 2
             for (int i = 0; i < goodMatches.size(); ++i)
             {
-              //  outfile << goodMatches[i].trainIdx << " ";
                 fileStr = fileStr + QString("%1 ").arg(goodMatches[i].trainIdx);
             }
             fileStr.append("\n");

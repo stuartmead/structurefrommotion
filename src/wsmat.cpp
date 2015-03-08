@@ -39,7 +39,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #include "structurefrommotionplugin.h"
-#include "opencv2/features2d/features2d.hpp"
+#include "opencv2/core/core.hpp"
+#include "opencv2/core/base.hpp"
+#include "opencv2/opencv.hpp"
+#include "opencv2/features2d.hpp"
 #include "wsmat.h"
 
 
@@ -190,3 +193,6 @@ DEFINE_WORKSPACE_DERIVEDTOBASEADAPTOR(RF::WSMat, CSIRO::DataExecution::ObjectGro
 DEFINE_WORKSPACE_DATA_FACTORY(cv::KeyPoint, RF::StructureFromMotionPlugin::getInstance())
 DEFINE_WORKSPACE_DATA_FACTORY(std::vector<cv::KeyPoint>, RF::StructureFromMotionPlugin::getInstance())
 DEFINE_WORKSPACE_DATA_FACTORY(std::vector<cv::DMatch>, RF::StructureFromMotionPlugin::getInstance())
+
+DEFINE_WORKSPACE_DATA_FACTORY(RF::NormTypes, RF::StructureFromMotionPlugin::getInstance())
+DEFINE_WORKSPACE_ENUMTOINTADAPTOR(RF::NormTypes, RF::StructureFromMotionPlugin::getInstance())
