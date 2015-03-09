@@ -32,6 +32,8 @@ Instructions for plugin usage
 -----------------------------
 Examples and usage instructions are currently being written and will be included in the Wiki.
 
+For bug reporting, questions and feature requests please use the [trello board] (https://trello.com/b/FRgMKmrs/structurefrommotionplugin)
+
 License
 -------
 Copyright (c) 2015, Stuart Mead - Risk Frontiers, Macquarie University
