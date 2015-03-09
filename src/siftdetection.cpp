@@ -155,10 +155,6 @@ namespace RF
         //Extract descriptions
         detector->compute(img1, keypoints, outDescriptors);
 
-        std::cout << QString("Descriptor byte size is %1").arg(detector->descriptorSize()) + "\n";
-        std::cout << QString("Number of descriptors is %1, number of keypoints is %2").arg(outDescriptors.rows).arg(keypoints.size()) +"\n";
-        
-
         if (*dataWriteSIFT_)
         {
             QString siftpre = image.split(".",QString::SkipEmptyParts).at(0);
@@ -190,9 +186,6 @@ namespace RF
                                 
             }
             
-            //Descriptor
-            std::cout << QString("Number of descriptors is %1, number of keypoints is %2").arg(outDescriptors.rows).arg(keypoints.size()) +"\n";
-        
             for (int i = 0; i < outDescriptors.rows; ++i)
             {
                 fwrite(&outDescriptors.row(i), sizeof(uchar[128]), 1,sift1);

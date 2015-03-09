@@ -1,36 +1,42 @@
 <!DOCTYPE serializeddata>
-<operation label="Root" id="{88e83707-a106-45d8-80e3-8fbeee58493e}" atomic="false" plugin="www.csiro.au/workspace/builtin" bgcolor="4280839393" type="Workspace">
+<operation type="Workspace" bgcolor="4280839393" atomic="false" plugin="www.csiro.au/workspace/builtin" label="Root" id="{88e83707-a106-45d8-80e3-8fbeee58493e}">
  <environment>
   <platform>windows 64bit</platform>
-  <lastModified>2015-03-08T13:13:47</lastModified>
-  <plugin name="www.csiro.au/workspace/builtin" uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64"/>
+  <lastModified>2015-03-09T09:29:56</lastModified>
   <plugin name="www.csiro.au/workspace/dataanalysis" uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64"/>
   <plugin name="www.riskfrontiers.com/sfm" uri="www.riskfrontiers.com/sfm/0.1.0/Windows/x86_64"/>
+  <plugin name="www.csiro.au/workspace/builtin" uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64"/>
  </environment>
  <input name="Dependencies" size="0"/>
  <input name="Image">D:/Dev/structurefrommotion/data/IMG_2674.JPG</input>
  <input name="Image (1)">D:/Dev/structurefrommotion/data/IMG_2675.JPG</input>
  <displays>
   <widgetwindow>
-   <iobase wsDataPath="wsDataPath:{941a8b08-026d-4882-b38f-238da18d2021}:output:Image Matches"/>
+   <iobase wsDataPath="wsDataPath:{21741943-7d3c-4619-8314-8bcf7c76cd8d}:output:Image Matches"/>
    <displaywidget displayWidgetName="CSIRO::DataAnalysis::ImageWidget"/>
-   <geometry>AdnQywABAAAAAAd4////+AAADIcAAAQHAAAISgAAAZoAAAnxAAAC/wAAAAECAA==</geometry>
+   <geometry>AdnQywABAAAAAAd4////+AAADIcAAAQHAAAH3wAAAK4AAAzLAAAC4gAAAAECAA==</geometry>
    <properties>
     <property name="image" value=""/>
     <property name="keepLast" value="true"/>
    </properties>
   </widgetwindow>
   <widgetwindow>
-   <iobase wsDataPath="wsDataPath:{21741943-7d3c-4619-8314-8bcf7c76cd8d}:output:Image Matches"/>
+   <iobase wsDataPath="wsDataPath:{941a8b08-026d-4882-b38f-238da18d2021}:output:Image Matches"/>
    <displaywidget displayWidgetName="CSIRO::DataAnalysis::ImageWidget"/>
-   <geometry>AdnQywABAAAAAAd4////+AAADIcAAAQHAAAJbQAAAPUAAAsUAAACWgAAAAECAA==</geometry>
+   <geometry>AdnQywABAAAAAAd4////+AAADIcAAAQHAAAGFwAAAPkAAAu1AAACvwAAAAECAA==</geometry>
    <properties>
     <property name="image" value=""/>
     <property name="keepLast" value="true"/>
    </properties>
   </widgetwindow>
  </displays>
- <operation label="BRISK Feature detection and extraction" id="{d79bb05c-9921-43d8-991e-87a39653367f}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" type="BriskDetection">
+ <wsnotes>
+  <wsnote x="310" y="-90" width="130" id="{505fc640-450d-45ff-99d3-dffc1e35d1d4}" text="Step 4: Give the feature matchers have outputs so they complete."/>
+  <wsnote x="-653.55796" y="-60" width="140" id="{65571bd0-95de-47b3-9118-050d8d87a203}" text="Step 1: Enter the path to the two images you want to compare"/>
+  <wsnote x="43.95" y="-131.21" width="162.17" id="{80bce903-c073-429d-9b79-2398f379257b}" text="Step 3: Point the outputs of the feature detectors to a MatchFeatures operation and adjust settings/paths to images"/>
+  <wsnote x="-191.61051" y="-171.61051" width="149.10355" id="{f4176d98-dafa-4518-9a59-2cfc42e55bfd}" text="Step 2: Point the image file locations to your feature detectors and adjust settings"/>
+ </wsnotes>
+ <operation type="BriskDetection" bgcolor="4284395451" plugin="www.riskfrontiers.com/sfm" label="BRISK Feature detection and extraction" id="{d79bb05c-9921-43d8-991e-87a39653367f}">
   <input name="Dependencies" size="0"/>
   <input preferredwidget="CSIRO::Widgets::FileNameWidget" name="Image" nodata="true"/>
   <input name="FAST detection threshold score">45</input>
@@ -38,9 +44,9 @@
   <input name="Pattern scale">1</input>
   <input name="Write out SIFT files for VSFM">0</input>
   <input name="Use 128 bit descriptors">1</input>
-  <view y="-99.5" width="164" height="154" x="-202"/>
+  <view x="-202" y="-99.5" height="154" width="164"/>
  </operation>
- <operation label="BRISK Feature detection and extraction (1)" id="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" type="BriskDetection">
+ <operation type="BriskDetection" bgcolor="4284395451" plugin="www.riskfrontiers.com/sfm" label="BRISK Feature detection and extraction (1)" id="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}">
   <input name="Dependencies" size="0"/>
   <input preferredwidget="CSIRO::Widgets::FileNameWidget" name="Image" nodata="true"/>
   <input name="FAST detection threshold score">45</input>
@@ -48,42 +54,32 @@
   <input name="Pattern scale">1</input>
   <input name="Write out SIFT files for VSFM">0</input>
   <input name="Use 128 bit descriptors">1</input>
-  <view y="70.5" width="164" height="154" x="-202"/>
+  <view x="-202" y="70.5" height="154" width="164"/>
  </operation>
- <operation label="Match BRISK Features" id="{941a8b08-026d-4882-b38f-238da18d2021}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" type="MatchFeatures">
+ <operation type="MatchFeatures" bgcolor="4284395451" plugin="www.riskfrontiers.com/sfm" label="Match BRISK Features" id="{941a8b08-026d-4882-b38f-238da18d2021}">
   <input name="Dependencies" size="0"/>
   <input name="Distance measurement">3</input>
-  <input name="Lowe Distance Ratio">0.69999999999999996</input>
+  <input name="Lowe Distance Ratio">0.59999999999999998</input>
   <input name="Draw Matches">1</input>
   <input name="Write out matches">0</input>
   <output preferredwidget="CSIRO::DataAnalysis::ImageWidget" name="Image Matches" globalname="BRISKMatches"/>
-  <view y="-93.5" width="164" height="242" x="48"/>
+  <view x="48" y="-93.5" height="242" width="164"/>
  </operation>
- <operation dataname="Image" label="Image" dataplugin="www.csiro.au/workspace/builtin" id="{cd257167-4fe8-47c4-8205-b8750195e652}" datatype="QString" plugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" type="WorkspaceInput">
+ <operation type="WorkspaceInput" bgcolor="4278242304" dataplugin="www.csiro.au/workspace/builtin" datatype="QString" plugin="www.csiro.au/workspace/builtin" label="Image" id="{cd257167-4fe8-47c4-8205-b8750195e652}" dataname="Image">
   <input name="Dependencies" size="0"/>
   <output preferredwidget="CSIRO::Widgets::FileNameWidget" name="Image"/>
-  <view y="-76" width="164" height="87" x="-682"/>
+  <view x="-672" y="14" height="87" width="164"/>
  </operation>
- <operation dataname="Image (1)" label="Image (1)" dataplugin="www.csiro.au/workspace/builtin" id="{5c883979-5e0c-463c-adac-3c8c455999b7}" datatype="QString" plugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" type="WorkspaceInput">
+ <operation type="WorkspaceInput" bgcolor="4278242304" dataplugin="www.csiro.au/workspace/builtin" datatype="QString" plugin="www.csiro.au/workspace/builtin" label="Image (1)" id="{5c883979-5e0c-463c-adac-3c8c455999b7}" dataname="Image (1)">
   <input name="Dependencies" size="0"/>
   <output preferredwidget="CSIRO::Widgets::FileNameWidget" name="Image (1)"/>
-  <view y="104" width="164" height="87" x="-702"/>
+  <view x="-672" y="294" height="87" width="164"/>
  </operation>
- <operation dataname="Image Matches" label="Image Matches" dataplugin="www.csiro.au/workspace/dataanalysis" id="{779b3c34-23cb-4326-bc02-140d722d8766}" datatype="QImage" plugin="www.csiro.au/workspace/builtin" bgcolor="4294931456" type="WorkspaceOutput">
+ <operation type="WorkspaceOutput" bgcolor="4294931456" dataplugin="www.csiro.au/workspace/dataanalysis" datatype="QImage" plugin="www.csiro.au/workspace/builtin" label="Image Matches" id="{779b3c34-23cb-4326-bc02-140d722d8766}" dataname="Image Matches">
   <input name="Dependencies" size="0"/>
-  <view y="-16" width="164" height="87" x="288"/>
+  <view x="288" y="-16" height="87" width="164"/>
  </operation>
- <operation label="SIFT keypoint detection" id="{25ab502c-34bc-418d-b518-37c54324b98e}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" type="SiftDetection">
-  <input name="Dependencies" size="0"/>
-  <input name="Number of features">1000</input>
-  <input name="Number of octave layers">3</input>
-  <input name="Contrast Threshold">0.040000000000000001</input>
-  <input name="Edge Threshold">10</input>
-  <input name="Gaussian sigma">1.6000000000000001</input>
-  <input name="Write out SIFT files for VSFM">0</input>
-  <view y="219.5" width="164" height="176" x="-202"/>
- </operation>
- <operation label="SIFT keypoint detection (1)" id="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" type="SiftDetection">
+ <operation type="SiftDetection" bgcolor="4284395451" plugin="www.riskfrontiers.com/sfm" label="SIFT keypoint detection" id="{25ab502c-34bc-418d-b518-37c54324b98e}">
   <input name="Dependencies" size="0"/>
   <input name="Number of features">1000</input>
   <input name="Number of octave layers">3</input>
@@ -91,37 +87,47 @@
   <input name="Edge Threshold">10</input>
   <input name="Gaussian sigma">1.6000000000000001</input>
   <input name="Write out SIFT files for VSFM">0</input>
-  <view y="369.5" width="164" height="176" x="-192"/>
+  <view x="-202" y="219.5" height="176" width="164"/>
  </operation>
- <operation label="Match SIFT Features" id="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" type="MatchFeatures">
+ <operation type="SiftDetection" bgcolor="4284395451" plugin="www.riskfrontiers.com/sfm" label="SIFT keypoint detection (1)" id="{4f9db978-7b78-47fb-b7bc-c1f57357392f}">
+  <input name="Dependencies" size="0"/>
+  <input name="Number of features">1000</input>
+  <input name="Number of octave layers">3</input>
+  <input name="Contrast Threshold">0.040000000000000001</input>
+  <input name="Edge Threshold">10</input>
+  <input name="Gaussian sigma">1.6000000000000001</input>
+  <input name="Write out SIFT files for VSFM">0</input>
+  <view x="-192" y="369.5" height="176" width="164"/>
+ </operation>
+ <operation type="MatchFeatures" bgcolor="4284395451" plugin="www.riskfrontiers.com/sfm" label="Match SIFT Features" id="{21741943-7d3c-4619-8314-8bcf7c76cd8d}">
   <input name="Dependencies" size="0"/>
   <input name="Distance measurement">1</input>
-  <input name="Lowe Distance Ratio">0.69999999999999996</input>
+  <input name="Lowe Distance Ratio">0.59999999999999998</input>
   <input name="Draw Matches">1</input>
   <input name="Write out matches">0</input>
   <output preferredwidget="CSIRO::DataAnalysis::ImageWidget" name="Image Matches" globalname="SIFTMatches"/>
-  <view y="276.5" width="164" height="242" x="58"/>
+  <view x="58" y="276.5" height="242" width="164"/>
  </operation>
- <operation dataname="Image Matches 1" label="Image Matches 1" dataplugin="www.csiro.au/workspace/dataanalysis" id="{49f2433c-8036-4287-bccc-566b2234c91d}" datatype="QImage" plugin="www.csiro.au/workspace/builtin" bgcolor="4294931456" type="WorkspaceOutput">
+ <operation type="WorkspaceOutput" bgcolor="4294931456" dataplugin="www.csiro.au/workspace/dataanalysis" datatype="QImage" plugin="www.csiro.au/workspace/builtin" label="Image Matches 1" id="{49f2433c-8036-4287-bccc-566b2234c91d}" dataname="Image Matches 1">
   <input name="Dependencies" size="0"/>
-  <view y="354" width="164" height="87" x="348"/>
+  <view x="318" y="354" height="87" width="164"/>
  </operation>
- <connection src_name="Keypoints" to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{d79bb05c-9921-43d8-991e-87a39653367f}" dest_name="Keypoints 1" copy="false"/>
- <connection src_name="Keypoints" to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" dest_name="Keypoints 2" copy="false"/>
- <connection src_name="Image" to_op="{d79bb05c-9921-43d8-991e-87a39653367f}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" dest_name="Image" copy="false"/>
- <connection src_name="Image (1)" to_op="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" dest_name="Image" copy="false"/>
- <connection src_name="Image (1)" to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" dest_name="Image 2" copy="false"/>
- <connection src_name="Image" to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" dest_name="Image 1" copy="false"/>
- <connection src_name="Keypoint Descriptors" to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{d79bb05c-9921-43d8-991e-87a39653367f}" dest_name="Descriptors 1" copy="false"/>
- <connection src_name="Keypoint Descriptors" to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" dest_name="Descriptors 2" copy="false"/>
- <connection src_name="Image Matches" to_op="{779b3c34-23cb-4326-bc02-140d722d8766}" from_op="{941a8b08-026d-4882-b38f-238da18d2021}" dest_name="Image Matches" copy="false"/>
- <connection src_name="Image (1)" to_op="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" dest_name="Image" copy="false"/>
- <connection src_name="Image" to_op="{25ab502c-34bc-418d-b518-37c54324b98e}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" dest_name="Image" copy="false"/>
- <connection src_name="Keypoints" to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{25ab502c-34bc-418d-b518-37c54324b98e}" dest_name="Keypoints 1" copy="false"/>
- <connection src_name="Keypoints" to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" dest_name="Keypoints 2" copy="false"/>
- <connection src_name="Keypoint Descriptors" to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{25ab502c-34bc-418d-b518-37c54324b98e}" dest_name="Descriptors 1" copy="false"/>
- <connection src_name="Keypoint Descriptors" to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" dest_name="Descriptors 2" copy="false"/>
- <connection src_name="Image" to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" dest_name="Image 1" copy="false"/>
- <connection src_name="Image (1)" to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" dest_name="Image 2" copy="false"/>
- <connection src_name="Image Matches" to_op="{49f2433c-8036-4287-bccc-566b2234c91d}" from_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" dest_name="Image Matches 1" copy="false"/>
+ <connection to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{d79bb05c-9921-43d8-991e-87a39653367f}" src_name="Keypoints" copy="false" dest_name="Keypoints 1"/>
+ <connection to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" src_name="Keypoints" copy="false" dest_name="Keypoints 2"/>
+ <connection to_op="{d79bb05c-9921-43d8-991e-87a39653367f}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" src_name="Image" copy="false" dest_name="Image"/>
+ <connection to_op="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" src_name="Image (1)" copy="false" dest_name="Image"/>
+ <connection to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" src_name="Image (1)" copy="false" dest_name="Image 2"/>
+ <connection to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" src_name="Image" copy="false" dest_name="Image 1"/>
+ <connection to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{d79bb05c-9921-43d8-991e-87a39653367f}" src_name="Keypoint Descriptors" copy="false" dest_name="Descriptors 1"/>
+ <connection to_op="{941a8b08-026d-4882-b38f-238da18d2021}" from_op="{4b8252a1-202b-4472-a464-76ec5ce0dc5d}" src_name="Keypoint Descriptors" copy="false" dest_name="Descriptors 2"/>
+ <connection to_op="{779b3c34-23cb-4326-bc02-140d722d8766}" from_op="{941a8b08-026d-4882-b38f-238da18d2021}" src_name="Image Matches" copy="false" dest_name="Image Matches"/>
+ <connection to_op="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" src_name="Image (1)" copy="false" dest_name="Image"/>
+ <connection to_op="{25ab502c-34bc-418d-b518-37c54324b98e}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" src_name="Image" copy="false" dest_name="Image"/>
+ <connection to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{25ab502c-34bc-418d-b518-37c54324b98e}" src_name="Keypoints" copy="false" dest_name="Keypoints 1"/>
+ <connection to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" src_name="Keypoints" copy="false" dest_name="Keypoints 2"/>
+ <connection to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{25ab502c-34bc-418d-b518-37c54324b98e}" src_name="Keypoint Descriptors" copy="false" dest_name="Descriptors 1"/>
+ <connection to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{4f9db978-7b78-47fb-b7bc-c1f57357392f}" src_name="Keypoint Descriptors" copy="false" dest_name="Descriptors 2"/>
+ <connection to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{cd257167-4fe8-47c4-8205-b8750195e652}" src_name="Image" copy="false" dest_name="Image 1"/>
+ <connection to_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" from_op="{5c883979-5e0c-463c-adac-3c8c455999b7}" src_name="Image (1)" copy="false" dest_name="Image 2"/>
+ <connection to_op="{49f2433c-8036-4287-bccc-566b2234c91d}" from_op="{21741943-7d3c-4619-8314-8bcf7c76cd8d}" src_name="Image Matches" copy="false" dest_name="Image Matches 1"/>
 </operation>

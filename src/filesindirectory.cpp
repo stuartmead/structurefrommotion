@@ -110,6 +110,7 @@ namespace RF
         CSIRO::DataExecution::FileFilter& filters      = *dataFilters_;
         QStringList&                      files        = *dataFiles_;
         
+        files.clear();
 
         QStringList nameFilters;
         for (int i = 0; i < inputFilePatterns_.size(); ++i)

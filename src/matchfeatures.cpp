@@ -189,7 +189,6 @@ namespace RF
 
         cv::BFMatcher matcher(normType);
         matcher.knnMatch(descriptors1,descriptors2,matches,2);
-        std::cout << QString("Completed nearest-neighbor matching") + "\n";
         //Nearest neighbour filtering - see Frank Lowe's paper
         for (int i = 0; i < matches.size(); ++i)
         {

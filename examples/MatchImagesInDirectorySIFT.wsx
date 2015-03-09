@@ -1,0 +1,239 @@
+<!DOCTYPE serializeddata>
+<operation atomic="false" type="Workspace" id="{7610a217-a6b0-49a9-b873-80c2d7ebba43}" plugin="www.csiro.au/workspace/builtin" bgcolor="4280839393" label="Root">
+ <environment>
+  <platform>windows 64bit</platform>
+  <lastModified>2015-03-09T15:46:46</lastModified>
+  <plugin name="www.csiro.au/workspace/builtin" uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64"/>
+  <plugin name="www.riskfrontiers.com/sfm" uri="www.riskfrontiers.com/sfm/0.1.0/Windows/x86_64"/>
+  <plugin name="www.csiro.au/workspace/dataanalysis" uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64"/>
+ </environment>
+ <input name="Dependencies" size="0"/>
+ <anchors>
+  <anchor id="{7610a217-a6b0-49a9-b873-80c2d7ebba43}" x="-1250" y="740" angle="-1"/>
+ </anchors>
+ <operation type="CountedLoop" id="{0933887f-6f05-444f-9750-389dbb066c2b}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Counted loop">
+  <input name="Dependencies" size="0"/>
+  <input name="Enable loop">1</input>
+  <input name="Wrap">0</input>
+  <input name="Start value">0</input>
+  <input name="Step value">1</input>
+  <input name="Counter value">0</input>
+  <input name="Enable parallel looping">0</input>
+  <view height="198" x="-2942" y="-401.5" width="164"/>
+ </operation>
+ <operation type="WorkspaceOutput" id="{c49f5a26-80c4-4b04-83be-15aaea7dd9dd}" datatype="CSIRO::DataExecution::Dependency" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4294931456" dataname="Counted loop dependency" label="Counted loop dependency">
+  <input name="Dependencies" size="0"/>
+  <view height="87" x="-2572" y="-416" width="164"/>
+ </operation>
+ <operation type="ComposeGroup" id="{e1d59f16-a907-40f1-bdda-b3a71f002ac1}" datatype="CSIRO::DataExecution::FileFilter" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" dataname="Object group" label="FileFilterOptions">
+  <input name="Dependencies" size="0"/>
+  <input name="Directories">0</input>
+  <input name="All directories">0</input>
+  <input name="Files">1</input>
+  <input name="Drives">0</input>
+  <input name="No symbolic links">0</input>
+  <input name="No dot (.)">1</input>
+  <input name="No dot dot (..)">1</input>
+  <input name="Readable">1</input>
+  <input name="Writable">1</input>
+  <input name="Executable">1</input>
+  <input name="Modified">0</input>
+  <input name="Hidden">0</input>
+  <input name="System">0</input>
+  <input name="Case sensitive">0</input>
+  <view height="330" x="-3852" y="-567.5" width="164"/>
+ </operation>
+ <operation type="StringSelectionInfo" id="{52a51c55-1e9a-4a26-8c34-f2920238a418}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="StringSelection info">
+  <input name="Dependencies" size="0"/>
+  <view height="88" x="-3452" y="-76.5" width="164"/>
+ </operation>
+ <operation type="FilesInDirectory" id="{c2c34360-41d0-4a7f-b6b2-81e10d186b40}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" label="List files in directory">
+  <input name="Dependencies" size="0"/>
+  <input preferredwidget="CSIRO::Widgets::FileNameWidget" name="Directory">D:/Dev/structurefrommotion/data</input>
+  <input name="File patterns" size="1">
+   <input index="0">*.JPG</input>
+  </input>
+  <output preferredwidget="QListWidget" name="Files"/>
+  <view height="108" x="-3672" y="-456.5" width="164"/>
+ </operation>
+ <operation type="ConvertQStringListToStringSelection" id="{66da4d52-73ee-464f-9507-2ad029d6e344}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Convert QStringList to StringSelection (1)">
+  <input name="Dependencies" size="0"/>
+  <input name="Ignore string not found">0</input>
+  <output preferredwidget="QComboBox" name="String selection"/>
+  <view height="88" x="-3672" y="-76.5" width="164"/>
+ </operation>
+ <operation namedoutputs="finalIteration" type="RunQtScript" id="{8880fecd-d221-4745-a598-82d728690f2b}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Run QtScript" namedinputs="noItems">
+  <input name="Dependencies" size="0"/>
+  <input name="Script">finalIteration = noItems - 1;</input>
+  <input name="Parameters" size="0"/>
+  <view height="87" x="-3272" y="-76" width="164"/>
+ </operation>
+ <operation atomic="false" type="Workspace" id="{9e4034c3-40aa-4ce4-b42b-b97be326e9e4}" plugin="www.csiro.au/workspace/builtin" bgcolor="4280839393" label="Top-Level Brisk Detection">
+  <input name="Dependencies" size="0"/>
+  <view height="87" x="-2642" y="-76" width="164"/>
+  <anchors>
+   <anchor id="{2bad5216-0a99-4c6e-838f-1ef37a344124}" x="-1653.13722968357" y="833.1372296835701" angle="15"/>
+   <anchor id="{b6bf8f1b-cc8f-4aea-959b-a2471ebd613c}" x="-2530" y="830" angle="6"/>
+  </anchors>
+  <operation type="SetSelectedStringByIndex" id="{c564da52-f891-46f8-bdf4-12e8428f90ca}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Select string by index (top)">
+   <input name="Dependencies" size="0"/>
+   <view height="87" x="-2672" y="124" width="164"/>
+  </operation>
+  <operation type="WriteStringToFile" id="{4c60dd9f-f15b-4186-8505-57f0bca5f94a}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Write string to file">
+   <input name="Dependencies" size="0"/>
+   <input name="File name">D:/Dev/structurefrommotion/data/matches.txt</input>
+   <input name="Append if file exists">1</input>
+   <input name="End string with new line">0</input>
+   <input name="Use QSystemSemaphore">1</input>
+   <view height="132" x="-1672" y="551.5" width="164"/>
+  </operation>
+  <operation type="CountedLoop" id="{f22f5709-5325-4a37-a329-4b3e97f2a412}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Counted loop">
+   <input name="Dependencies" size="1"/>
+   <input name="Enable loop">1</input>
+   <input name="Wrap">0</input>
+   <input name="Step value">1</input>
+   <input name="Counter value">2</input>
+   <input name="Enable parallel looping">0</input>
+   <view height="218" x="-2672" y="518.5" width="164"/>
+  </operation>
+  <operation type="ConvertQStringListToStringSelection" id="{18c97e55-a6b6-47dd-97f8-07b617ed0ebb}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Convert QStringList to StringSelection">
+   <input name="Dependencies" size="0"/>
+   <input name="Ignore string not found">0</input>
+   <output preferredwidget="QComboBox" name="String selection"/>
+   <view height="88" x="-2672" y="-126.5" width="164"/>
+  </operation>
+  <operation namedoutputs="frameNo" type="RunQtScript" id="{9730f01f-3801-4811-9080-d370b7325991}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Run QtScript" namedinputs="countNo">
+   <input name="Dependencies" size="0"/>
+   <input name="Script">frameNo = countNo + 1;</input>
+   <input name="Parameters" size="0"/>
+   <view height="87" x="-2672" y="264" width="164"/>
+  </operation>
+  <operation type="WorkspaceInput" id="{f0c36de6-66cb-4420-84ed-d8b041e02104}" datatype="int" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" dataname="Index" label="Index">
+   <input name="Dependencies" size="0"/>
+   <view height="130" x="-2862" y="132.5" width="164"/>
+  </operation>
+  <operation type="WorkspaceInput" id="{c51ee9aa-d97d-427c-b7d4-2d37f56c2d6a}" datatype="int" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" dataname="End value" label="End value">
+   <input name="Dependencies" size="0"/>
+   <view height="130" x="-2852" y="392.5" width="164"/>
+  </operation>
+  <operation type="WorkspaceOutput" id="{e8660177-acfb-4e81-81fc-549a20ddcaa6}" datatype="CSIRO::DataExecution::Dependency" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4294931456" dataname="Counted loop (1) dependency" label="Counted loop (1) dependency">
+   <input name="Dependencies" size="0"/>
+   <view height="130" x="-2512" y="432.5" width="164"/>
+  </operation>
+  <operation type="WorkspaceInput" id="{694cafd4-289b-4556-9fd5-0a58ae55debd}" datatype="QStringList" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" dataname="String list" label="String list">
+   <input name="Dependencies" size="0"/>
+   <view height="130" x="-2862" y="-147.5" width="164"/>
+  </operation>
+  <operation type="StringSelectionInfo" id="{88bb9cd1-aa47-4687-8055-e8dd941f9223}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="StringSelection info">
+   <input name="Dependencies" size="0"/>
+   <view height="88" x="-2562" y="123.5" width="164"/>
+  </operation>
+  <operation type="SiftDetection" id="{a540d011-bd09-4a87-8406-3f70481ce64b}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" label="SIFT keypoint detection">
+   <input name="Dependencies" size="0"/>
+   <input name="Number of features">20000</input>
+   <input name="Number of octave layers">3</input>
+   <input name="Contrast Threshold">0.040000000000000001</input>
+   <input name="Edge Threshold">10</input>
+   <input name="Gaussian sigma">1.6000000000000001</input>
+   <input name="Write out SIFT files for VSFM">1</input>
+   <view height="176" x="-2352" y="79.5" width="164"/>
+  </operation>
+  <operation atomic="false" type="Workspace" id="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" plugin="www.csiro.au/workspace/builtin" bgcolor="4280839393" label="Lower-Level Brisk Detection">
+   <input name="Dependencies" size="0"/>
+   <view height="110" x="-2242" y="562.5" width="164"/>
+   <operation type="StringSelectionInfo" id="{1dd8f7a9-ff0f-4a10-a0dc-57bc42a52965}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="StringSelection info">
+    <input name="Dependencies" size="0"/>
+    <view height="88" x="-2162" y="933.5" width="164"/>
+   </operation>
+   <operation type="MatchFeatures" id="{93987830-a309-4ef7-99b4-d81acba350c1}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" label="Match Image Features">
+    <input name="Dependencies" size="0"/>
+    <input name="Distance measurement">1</input>
+    <input name="Lowe Distance Ratio">0.59999999999999998</input>
+    <input name="Draw Matches">0</input>
+    <input name="Write out matches">1</input>
+    <output preferredwidget="CSIRO::DataAnalysis::ImageWidget" name="Image Matches"/>
+    <view height="264" x="-1892" y="275.5" width="164"/>
+   </operation>
+   <operation type="SetSelectedStringByIndex" id="{71ad6c1a-6520-4048-a49b-4bb9c6c08cb0}" plugin="www.csiro.au/workspace/builtin" bgcolor="4284395451" label="Select string by index (lower)">
+    <input name="Dependencies" size="0"/>
+    <view height="87" x="-2372" y="934" width="164"/>
+   </operation>
+   <operation type="SiftDetection" id="{ef566e9d-e35a-473b-a4f1-efb1438eba23}" plugin="www.riskfrontiers.com/sfm" bgcolor="4284395451" label="SIFT keypoint detection">
+    <input name="Dependencies" size="0"/>
+    <input name="Number of features">20000</input>
+    <input name="Number of octave layers">3</input>
+    <input name="Contrast Threshold">0.040000000000000001</input>
+    <input name="Edge Threshold">10</input>
+    <input name="Gaussian sigma">1.6000000000000001</input>
+    <input name="Write out SIFT files for VSFM">0</input>
+    <view height="176" x="-1962" y="889.5" width="164"/>
+   </operation>
+   <operation type="WorkspaceInput" id="{6f6879fc-fd5e-49dc-9b5a-47509fcc3989}" datatype="std::vector&lt;cv::KeyPoint>" plugin="www.csiro.au/workspace/builtin" dataplugin="www.riskfrontiers.com/sfm" bgcolor="4278242304" dataname="Keypoints 1" label="Keypoints 1">
+    <input name="Dependencies" size="0"/>
+    <view height="130" x="-2652" y="342.5" width="164"/>
+   </operation>
+   <operation type="WorkspaceInput" id="{212e3ca7-1020-4576-96be-114094dbc6ec}" datatype="RF::WSMat" plugin="www.csiro.au/workspace/builtin" dataplugin="www.riskfrontiers.com/sfm" bgcolor="4278242304" dataname="Descriptors 1" label="Descriptors 1">
+    <input name="Dependencies" size="0"/>
+    <view height="130" x="-2652" y="452.5" width="164"/>
+   </operation>
+   <operation type="WorkspaceInput" id="{5b65115c-81ee-48b7-b257-826e53d0adff}" datatype="QString" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" dataname="Image 1" label="Image 1">
+    <input name="Dependencies" size="0"/>
+    <view height="130" x="-2662" y="562.5" width="164"/>
+   </operation>
+   <operation type="WorkspaceOutput" id="{7caa47d4-a2bd-40d2-a75d-0d155d8e536a}" datatype="QString" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4294931456" dataname="Match String" label="Match String">
+    <input name="Dependencies" size="0"/>
+    <view height="130" x="-1608" y="486" width="164"/>
+   </operation>
+   <operation type="WorkspaceInput" id="{8beb9693-07e2-4237-a02c-3d889ce4489e}" datatype="CSIRO::DataExecution::StringSelection" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" dataname="StringSelection" label="StringSelection">
+    <input name="Dependencies" size="0"/>
+    <view height="130" x="-2642" y="936" width="164"/>
+   </operation>
+   <operation type="WorkspaceInput" id="{09d43f4b-1095-4a80-a753-febb272b4556}" datatype="int" plugin="www.csiro.au/workspace/builtin" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4278242304" dataname="Index" label="Index">
+    <input name="Dependencies" size="0"/>
+    <view height="130" x="-2642" y="1086" width="164"/>
+   </operation>
+   <connection copy="false" from_op="{1dd8f7a9-ff0f-4a10-a0dc-57bc42a52965}" dest_name="Image 2" to_op="{93987830-a309-4ef7-99b4-d81acba350c1}" src_name="Selected string"/>
+   <connection copy="false" from_op="{1dd8f7a9-ff0f-4a10-a0dc-57bc42a52965}" dest_name="Image" to_op="{ef566e9d-e35a-473b-a4f1-efb1438eba23}" src_name="Selected string"/>
+   <connection copy="false" from_op="{71ad6c1a-6520-4048-a49b-4bb9c6c08cb0}" dest_name="StringSelection" to_op="{1dd8f7a9-ff0f-4a10-a0dc-57bc42a52965}" src_name="StringSelection"/>
+   <connection copy="false" from_op="{ef566e9d-e35a-473b-a4f1-efb1438eba23}" dest_name="Keypoints 2" to_op="{93987830-a309-4ef7-99b4-d81acba350c1}" src_name="Keypoints"/>
+   <connection copy="false" from_op="{ef566e9d-e35a-473b-a4f1-efb1438eba23}" dest_name="Descriptors 2" to_op="{93987830-a309-4ef7-99b4-d81acba350c1}" src_name="Keypoint Descriptors"/>
+   <connection copy="false" from_op="{93987830-a309-4ef7-99b4-d81acba350c1}" dest_name="Match String" to_op="{7caa47d4-a2bd-40d2-a75d-0d155d8e536a}" src_name="Match String"/>
+   <connection copy="false" from_op="{8beb9693-07e2-4237-a02c-3d889ce4489e}" dest_name="StringSelection" to_op="{71ad6c1a-6520-4048-a49b-4bb9c6c08cb0}" src_name="StringSelection"/>
+   <connection copy="false" from_op="{09d43f4b-1095-4a80-a753-febb272b4556}" dest_name="Index" to_op="{71ad6c1a-6520-4048-a49b-4bb9c6c08cb0}" src_name="Index"/>
+   <connection copy="false" from_op="{6f6879fc-fd5e-49dc-9b5a-47509fcc3989}" dest_name="Keypoints 1" to_op="{93987830-a309-4ef7-99b4-d81acba350c1}" src_name="Keypoints 1"/>
+   <connection copy="false" from_op="{212e3ca7-1020-4576-96be-114094dbc6ec}" dest_name="Descriptors 1" to_op="{93987830-a309-4ef7-99b4-d81acba350c1}" src_name="Descriptors 1"/>
+   <connection copy="false" from_op="{5b65115c-81ee-48b7-b257-826e53d0adff}" dest_name="Image 1" to_op="{93987830-a309-4ef7-99b4-d81acba350c1}" src_name="Image 1"/>
+  </operation>
+  <connection copy="false" from_op="{4c60dd9f-f15b-4186-8505-57f0bca5f94a}" dest_name="Iteration dependency" to_op="{f22f5709-5325-4a37-a329-4b3e97f2a412}" src_name="Dependencies">
+   <anchors>
+    <anchor id="{2bad5216-0a99-4c6e-838f-1ef37a344124}"/>
+    <anchor id="{b6bf8f1b-cc8f-4aea-959b-a2471ebd613c}"/>
+   </anchors>
+  </connection>
+  <connection copy="false" from_op="{18c97e55-a6b6-47dd-97f8-07b617ed0ebb}" dest_name="StringSelection" to_op="{c564da52-f891-46f8-bdf4-12e8428f90ca}" src_name="String selection"/>
+  <connection copy="false" from_op="{9730f01f-3801-4811-9080-d370b7325991}" dest_name="Start value" to_op="{f22f5709-5325-4a37-a329-4b3e97f2a412}" src_name="frameNo"/>
+  <connection copy="false" from_op="{f0c36de6-66cb-4420-84ed-d8b041e02104}" dest_name="Index" to_op="{c564da52-f891-46f8-bdf4-12e8428f90ca}" src_name="Index"/>
+  <connection copy="false" from_op="{c51ee9aa-d97d-427c-b7d4-2d37f56c2d6a}" dest_name="End value" to_op="{f22f5709-5325-4a37-a329-4b3e97f2a412}" src_name="End value"/>
+  <connection copy="false" from_op="{f22f5709-5325-4a37-a329-4b3e97f2a412}" dest_name="Counted loop (1) dependency" to_op="{e8660177-acfb-4e81-81fc-549a20ddcaa6}" src_name="Dependencies"/>
+  <connection copy="false" from_op="{694cafd4-289b-4556-9fd5-0a58ae55debd}" dest_name="String list" to_op="{18c97e55-a6b6-47dd-97f8-07b617ed0ebb}" src_name="String list"/>
+  <connection copy="false" from_op="{f0c36de6-66cb-4420-84ed-d8b041e02104}" dest_name="countNo" to_op="{9730f01f-3801-4811-9080-d370b7325991}" src_name="Index"/>
+  <connection copy="false" from_op="{88bb9cd1-aa47-4687-8055-e8dd941f9223}" dest_name="Image" to_op="{a540d011-bd09-4a87-8406-3f70481ce64b}" src_name="Selected string"/>
+  <connection copy="false" from_op="{c564da52-f891-46f8-bdf4-12e8428f90ca}" dest_name="StringSelection" to_op="{88bb9cd1-aa47-4687-8055-e8dd941f9223}" src_name="StringSelection"/>
+  <connection copy="false" from_op="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" dest_name="String" to_op="{4c60dd9f-f15b-4186-8505-57f0bca5f94a}" src_name="Match String"/>
+  <connection copy="false" from_op="{18c97e55-a6b6-47dd-97f8-07b617ed0ebb}" dest_name="StringSelection" to_op="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" src_name="String selection"/>
+  <connection copy="false" from_op="{f22f5709-5325-4a37-a329-4b3e97f2a412}" dest_name="Index" to_op="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" src_name="Counter value"/>
+  <connection copy="false" from_op="{a540d011-bd09-4a87-8406-3f70481ce64b}" dest_name="Keypoints 1" to_op="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" src_name="Keypoints"/>
+  <connection copy="false" from_op="{a540d011-bd09-4a87-8406-3f70481ce64b}" dest_name="Descriptors 1" to_op="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" src_name="Keypoint Descriptors"/>
+  <connection copy="false" from_op="{88bb9cd1-aa47-4687-8055-e8dd941f9223}" dest_name="Image 1" to_op="{653f1218-c282-4057-a7dc-f73c5ef78bb4}" src_name="Selected string"/>
+ </operation>
+ <connection copy="false" from_op="{0933887f-6f05-444f-9750-389dbb066c2b}" dest_name="Counted loop dependency" to_op="{c49f5a26-80c4-4b04-83be-15aaea7dd9dd}" src_name="Dependencies"/>
+ <connection copy="false" from_op="{e1d59f16-a907-40f1-bdda-b3a71f002ac1}" dest_name="Filters" to_op="{c2c34360-41d0-4a7f-b6b2-81e10d186b40}" src_name="Object group"/>
+ <connection copy="false" from_op="{c2c34360-41d0-4a7f-b6b2-81e10d186b40}" dest_name="String list" to_op="{66da4d52-73ee-464f-9507-2ad029d6e344}" src_name="Files"/>
+ <connection copy="false" from_op="{66da4d52-73ee-464f-9507-2ad029d6e344}" dest_name="StringSelection" to_op="{52a51c55-1e9a-4a26-8c34-f2920238a418}" src_name="String selection"/>
+ <connection copy="false" from_op="{52a51c55-1e9a-4a26-8c34-f2920238a418}" dest_name="noItems" to_op="{8880fecd-d221-4745-a598-82d728690f2b}" src_name="Number of items"/>
+ <connection copy="false" from_op="{8880fecd-d221-4745-a598-82d728690f2b}" dest_name="End value" to_op="{0933887f-6f05-444f-9750-389dbb066c2b}" src_name="finalIteration"/>
+ <connection copy="false" from_op="{0933887f-6f05-444f-9750-389dbb066c2b}" dest_name="Index" to_op="{9e4034c3-40aa-4ce4-b42b-b97be326e9e4}" src_name="Counter value"/>
+ <connection copy="false" from_op="{8880fecd-d221-4745-a598-82d728690f2b}" dest_name="End value" to_op="{9e4034c3-40aa-4ce4-b42b-b97be326e9e4}" src_name="finalIteration"/>
+ <connection copy="false" from_op="{9e4034c3-40aa-4ce4-b42b-b97be326e9e4}" dest_name="Iteration dependency" to_op="{0933887f-6f05-444f-9750-389dbb066c2b}" src_name="Counted loop (1) dependency"/>
+ <connection copy="false" from_op="{c2c34360-41d0-4a7f-b6b2-81e10d186b40}" dest_name="String list" to_op="{9e4034c3-40aa-4ce4-b42b-b97be326e9e4}" src_name="Files"/>
+</operation>

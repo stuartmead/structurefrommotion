@@ -118,6 +118,9 @@ namespace RF
         outputKeypoint_("Keypoints", dataKeypoint_, op_),
         outputDescriptor_("Keypoint Descriptors", dataDescriptor_, op_)
     {
+        inputThresh_.setDescription("FAST/AGAST detection threshold score.");
+        inputOctave_.setDescription("Detection octaves. Use 0 to do single scale.");
+        inputPattern_.setDescription("Apply this scale to the pattern used for sampling the neighbourhood of a keypoint.");
         inputWriteSIFT_.setDescription("Writes out a .sift file for use in visualSFM in the same folder as the images");
         input128bit_.setDescription("Writes sift file with 128 bit descriptors, for visual SFM compatbility. Only set to false if you know what you are doing.");
     }

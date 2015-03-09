@@ -1,0 +1,246 @@
+<!DOCTYPE serializeddata>
+<operation plugin="www.csiro.au/workspace/builtin" label="Root" bgcolor="4280839393" atomic="false" type="Workspace" id="{7ff14144-c8b2-472f-ab5a-96c79efc02a1}">
+ <environment>
+  <platform>windows 64bit</platform>
+  <lastModified>2015-03-09T16:21:19</lastModified>
+  <plugin uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64" name="www.csiro.au/workspace/builtin"/>
+  <plugin uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64" name="www.csiro.au/workspace/rendering"/>
+  <plugin uri="www.csiro.au/workspace/packages/3.3.1/Windows/x86_64" name="www.csiro.au/workspace/mesh"/>
+  <plugin uri="www.csiro.au/workspace/pointcloud/3.3.1/Windows/x86_64" name="www.csiro.au/workspace/pointcloud"/>
+ </environment>
+ <input name="Dependencies" size="0"/>
+ <displays>
+  <widgetwindow>
+   <iobase wsDataPath="wsDataPath:{3e0a25e6-d208-4445-bf7f-6456a9657cca}:output:Scene"/>
+   <displaywidget displayWidgetName="CSIRO::Rendering::WSGLWidget"/>
+   <geometry>AdnQywABAAAAAAd4////+AAADIcAAAQHAAAJLgAAAYEAAArTAAADJgAAAAECAA==</geometry>
+   <properties>
+    <property value="#a7a7a7" name="backgroundColor"/>
+    <property value="false" name="showHud"/>
+    <property value="true" name="showSymbols"/>
+    <property value="false" name="depthPeeling"/>
+    <property value="4" name="numDepthLayers"/>
+    <property value="true" name="antialiasing"/>
+    <property value="4" name="numSamples"/>
+    <property value="camera_1" name="camera"/>
+    <property value="true" name="cameraSwitchable"/>
+    <property value="true" name="suppressCameraWarnings"/>
+    <property value="true" name="showSelectionButtons"/>
+    <property value="true" name="modelSelection"/>
+    <property value="2" name="pointSize"/>
+    <property value="1" name="lineWidth"/>
+    <property value="false" name="ssaoEnabled"/>
+    <property value="64" name="ssaoNumSamples"/>
+    <property value="0.025" name="ssaoSampleLength"/>
+    <property value="1.5" name="ssaoStrength"/>
+    <property value="0.001" name="ssaoAttenuation"/>
+   </properties>
+  </widgetwindow>
+ </displays>
+ <operation plugin="www.csiro.au/workspace/rendering" label="Scene builder" bgcolor="4284395451" type="SceneBuilder" id="{3e0a25e6-d208-4445-bf7f-6456a9657cca}">
+  <input name="Dependencies" size="0"/>
+  <input name="Scene items" size="3"/>
+  <input name="Image overlays" size="0"/>
+  <input name="Characteristic length">1</input>
+  <output name="Scene" preferredwidget="CSIRO::Rendering::WSGLWidget"/>
+  <view x="-102" y="-369.5" width="164" height="214"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/builtin" label="Scene" datatype="CSIRO::Rendering::Scene" dataplugin="www.csiro.au/workspace/rendering" bgcolor="4294931456" dataname="Scene" type="WorkspaceOutput" id="{7967ec98-96c6-45a1-9b93-3b586b619e4e}">
+  <input name="Dependencies" size="0"/>
+  <view x="88" y="-306" width="164" height="87"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/builtin" label="Create camera with attached light" catpath="Scene" bgcolor="4280839393" catname="CreateCameraWithAttachedLight" atomic="false" type="Workspace" id="{14f41f32-cb42-4e9a-af91-238a3e0ccb7a}">
+  <input name="Dependencies" size="0"/>
+  <input name="Projection mode">0</input>
+  <input name="Name">camera_1</input>
+  <input name="Enabled">1</input>
+  <input name="Directional light color" rgba="4291019715"/>
+  <input name="Ambient light color" rgba="4282137660"/>
+  <view x="-122" y="-518.5" width="164" height="132"/>
+  <operation plugin="www.csiro.au/workspace/rendering" label="Directional light builder" bgcolor="5614335" type="DirectionalLightBuilder" id="{e36c0f41-7909-45ba-9861-c49100ecf42f}">
+   <input name="Dependencies" size="0"/>
+   <input name="Enabled">1</input>
+   <input name="Intensity">1</input>
+   <view version="2" x="-192" y="719" inrackloc="left" width="164" outrackloc="right" height="157"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/rendering" label="Camera builder" bgcolor="5614335" type="CameraBuilder" id="{15eab1d0-d2de-4dbb-be04-5b42752e6b80}">
+   <input name="Dependencies" size="0"/>
+   <input name="Enabled">1</input>
+   <input name="Respond to interaction">0</input>
+   <input name="Transform matrix"> 1 0 0 0
+ 0 1 0 0
+ 0 0 1 0
+ 0 0 0 1
+</input>
+   <input name="Field of view">25</input>
+   <input name="Orthographic view volume">1</input>
+   <input name="Near clipping plane">9.7344801704149582</input>
+   <input name="Far clipping plane">194.68960340829915</input>
+   <view version="2" x="-202" y="422.5" inrackloc="left" width="164" outrackloc="right" height="220"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/rendering" label="Transform builder" bgcolor="5614335" type="TransformBuilder" id="{803a286b-3eed-47a5-bb41-10c87936f4e2}">
+   <input name="Dependencies" size="0"/>
+   <input name="Interactive">0</input>
+   <input name="Name">Transform</input>
+   <input name="Transform matrix"> 0.794612701814962 0.107404977266501 -0.597540647130153 -24.0926618218687
+ -0.105286339870942 -0.944935411247739 -0.309857798363475 -20.6419184453177
+ -0.597917586922242 0.30912980999648 -0.739549403231889 -39.6415557544984
+ 0 0 0 1
+</input>
+   <input name="Child scene items" size="3"/>
+   <view version="2" x="-52" y="586" inrackloc="left" width="164" outrackloc="right" height="183"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Output: Transform" datatype="CSIRO::Rendering::Transform" dataplugin="www.csiro.au/workspace/rendering" bgcolor="4294945280" dataname="Transform" type="WorkspaceOutput" id="{7ff14144-c8b2-472f-ab5a-96c79efc02a1}">
+   <input name="Dependencies" size="0"/>
+   <view version="2" x="108" y="592.5" inrackloc="left" width="164" outrackloc="right" height="170"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Camera" datatype="CSIRO::Rendering::Camera" dataplugin="www.csiro.au/workspace/rendering" bgcolor="4294945280" dataname="Camera" type="WorkspaceOutput" id="{10a4ec00-8b56-4472-a3af-42ca518c8db6}">
+   <input name="Dependencies" size="0"/>
+   <view version="2" x="108" y="464" inrackloc="left" width="164" outrackloc="right" height="127"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/rendering" label="Ambient light builder" bgcolor="5614335" type="AmbientLightBuilder" id="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}">
+   <input name="Dependencies" size="0"/>
+   <input name="Enabled">1</input>
+   <input name="Intensity">1</input>
+   <view version="2" x="-192" y="849" inrackloc="left" width="164" outrackloc="right" height="157"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Projection mode" datatype="CSIRO::Rendering::Camera::ProjectionMode" dataplugin="www.csiro.au/workspace/rendering" bgcolor="4288085880" dataname="Projection mode" type="WorkspaceInput" id="{3e0a25e6-d208-4445-bf7f-6456a9657cca}">
+   <input name="Dependencies" size="0"/>
+   <view x="-432" y="490" width="164" height="87"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Name" datatype="QString" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4288085880" dataname="Name" type="WorkspaceInput" id="{14f41f32-cb42-4e9a-af91-238a3e0ccb7a}">
+   <input name="Dependencies" size="0"/>
+   <view x="-430" y="370" width="164" height="87"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Enabled" datatype="bool" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4288085880" dataname="Enabled" type="WorkspaceInput" id="{15399b56-569f-42b4-aa3f-175803cb6a2c}">
+   <input name="Dependencies" size="0"/>
+   <view x="-432" y="640" width="164" height="87"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Directional light color" datatype="QColor" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4288085880" dataname="Directional light color" type="WorkspaceInput" id="{0675e192-ccb0-4194-8a28-504634e47b62}">
+   <input name="Dependencies" size="0"/>
+   <view x="-430" y="760" width="164" height="87"/>
+  </operation>
+  <operation plugin="www.csiro.au/workspace/builtin" label="Ambient light color" datatype="QColor" dataplugin="www.csiro.au/workspace/builtin" bgcolor="4288085880" dataname="Ambient light color" type="WorkspaceInput" id="{8dbc9fb9-76f4-4f09-85ff-cbb6f4f484c7}">
+   <input name="Dependencies" size="0"/>
+   <view x="-430" y="890" width="164" height="87"/>
+  </operation>
+  <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Child scene items" from_op="{e36c0f41-7909-45ba-9861-c49100ecf42f}" src_name="Directional light" dest_index="1" copy="false"/>
+  <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Interaction camera" from_op="{15eab1d0-d2de-4dbb-be04-5b42752e6b80}" src_name="Camera" copy="false"/>
+  <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Child scene items" from_op="{15eab1d0-d2de-4dbb-be04-5b42752e6b80}" src_name="Camera" dest_index="0" copy="false"/>
+  <connection to_op="{7ff14144-c8b2-472f-ab5a-96c79efc02a1}" dest_name="Transform" from_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" src_name="Transform" copy="false"/>
+  <connection to_op="{10a4ec00-8b56-4472-a3af-42ca518c8db6}" dest_name="Camera" from_op="{15eab1d0-d2de-4dbb-be04-5b42752e6b80}" src_name="Camera" copy="false"/>
+  <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Child scene items" from_op="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}" src_name="Ambient light" dest_index="2" copy="false"/>
+  <connection to_op="{15eab1d0-d2de-4dbb-be04-5b42752e6b80}" dest_name="Projection mode" from_op="{3e0a25e6-d208-4445-bf7f-6456a9657cca}" src_name="Projection mode" copy="false"/>
+  <connection to_op="{15eab1d0-d2de-4dbb-be04-5b42752e6b80}" dest_name="Name" from_op="{14f41f32-cb42-4e9a-af91-238a3e0ccb7a}" src_name="Name" copy="false"/>
+  <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Enabled" from_op="{15399b56-569f-42b4-aa3f-175803cb6a2c}" src_name="Enabled" copy="false"/>
+  <connection to_op="{e36c0f41-7909-45ba-9861-c49100ecf42f}" dest_name="Color" from_op="{0675e192-ccb0-4194-8a28-504634e47b62}" src_name="Directional light color" copy="false"/>
+  <connection to_op="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}" dest_name="Color" from_op="{8dbc9fb9-76f4-4f09-85ff-cbb6f4f484c7}" src_name="Ambient light color" copy="false"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/rendering" label="MeshModelInstance builder" bgcolor="4284395451" type="MeshModelInstanceBuilder" id="{803a286b-3eed-47a5-bb41-10c87936f4e2}">
+  <input name="Dependencies" size="0"/>
+  <input name="Model ID">SSD_model</input>
+  <input name="Enabled">0</input>
+  <input name="Interactive">1</input>
+  <input name="Clear cached data" size="1"/>
+  <input name="Edge break threshold">30</input>
+  <input name="Glyphers" size="0"/>
+  <input name="Transform matrix"> 1 0 0 0
+ 0 1 0 0
+ 0 0 1 0
+ 0 0 0 1
+</input>
+  <view x="-302" y="-392.5" width="164" height="259"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/pointcloud" label="Merge Nearby Nodes" bgcolor="4284395451" type="MergeNearbyNodes" id="{55ef964a-0ea4-4bc4-8a2e-ac891cc12ff2}">
+  <input name="Dependencies" size="0"/>
+  <input name="Radius">0.01</input>
+  <input name="Conservative merging">0</input>
+  <input name="Conservative curvature limit">0.050000000000000003</input>
+  <input name="Curvature state name">curvature</input>
+  <view x="-952" y="-328.5" width="164" height="132"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/rendering" label="ColorStateShader Builder" bgcolor="4284395451" type="CreateColorStateShader" id="{40a25797-2222-41d0-aac1-205e3327dd4d}">
+  <input name="Dependencies" size="0"/>
+  <input name="Surface representation">5</input>
+  <input name="State name">RGBA</input>
+  <input name="Enable lighting">1</input>
+  <input name="Apply transparency">0</input>
+  <view x="-452" y="-457.5" width="164" height="110"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/pointcloud" label="SSD reconstruction" bgcolor="4284395451" type="SmootheSignedDistance" id="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}">
+  <input name="Dependencies" size="0"/>
+  <input name="Verbose logging">1</input>
+  <input name="Manifold mesh (experimental)">1</input>
+  <input name="Compute Color">1</input>
+  <input name="Bounding Box Expansion Factor">1.1000000000000001</input>
+  <input name="Octree Levels">12</input>
+  <input name="Octree Start Level">1</input>
+  <input name="Samples per node">2</input>
+  <input name="Isolevel">0</input>
+  <input name="Weight">
+   <x>1</x>
+   <y>1.2</y>
+   <z>1</z>
+  </input>
+  <input name="Color weight 1">1</input>
+  <input name="Color weight 2">0.10000000000000001</input>
+  <input name="Tolerance">1e-008</input>
+  <input name="Color Tolerance">1.0000000000000001e-005</input>
+  <input name="Minimum Iterations">1</input>
+  <input name="Maximum Iterations">300</input>
+  <input name="Fast Construction">1</input>
+  <input name="Make Polygons">1</input>
+  <view x="-572" y="-471.5" width="164" height="418"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/mesh" label="Read PLY mesh" bgcolor="4284395451" type="Read PLY mesh" id="{9afdfe84-896f-421f-b1a5-2efc2e6a40d2}">
+  <input name="Dependencies" size="0"/>
+  <input name="File name" preferredwidget="CSIRO::Widgets::FileNameWidget">D:/Dev/structurefrommotion/data/dense.0.ply</input>
+  <input name="Stop after N points">-1</input>
+  <view x="-1312" y="-306.5" width="164" height="88"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/mesh" label="Create RGBA State" bgcolor="4284395451" type="CreateRgbaState" id="{6f53e37c-9f51-4e80-b306-7bdadc5a0d23}">
+  <input name="Dependencies" size="0"/>
+  <input name="Red state name">diffuse_red</input>
+  <input name="Green state name">diffuse_green</input>
+  <input name="Blue state name">diffuse_blue</input>
+  <input name="Output state name">RGBA</input>
+  <view x="-1132" y="-339.5" width="164" height="154"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/rendering" label="Point_model" bgcolor="4284395451" type="MeshModelInstanceBuilder" id="{424b1eb8-5493-4891-9cfd-2342d1fe5d17}">
+  <input name="Dependencies" size="0"/>
+  <input name="Model ID">Point_model</input>
+  <input name="Enabled">1</input>
+  <input name="Interactive">1</input>
+  <input name="Clear cached data" size="1">
+   <input index="0">0</input>
+  </input>
+  <input name="Edge break threshold">30</input>
+  <input name="Glyphers" size="0"/>
+  <input name="Transform matrix"> 1 0 0 0
+ 0 1 0 0
+ 0 0 1 0
+ 0 0 0 1
+</input>
+  <view x="-412" y="-102" width="164" height="259"/>
+ </operation>
+ <operation plugin="www.csiro.au/workspace/rendering" label="ColorStateShader Builder (1)" bgcolor="4284395451" type="CreateColorStateShader" id="{cb8468b7-203f-4c8d-a0b7-0c3953676940}">
+  <input name="Dependencies" size="0"/>
+  <input name="Surface representation">2</input>
+  <input name="State name">RGBA</input>
+  <input name="Enable lighting">1</input>
+  <input name="Apply transparency">0</input>
+  <view x="-612" y="-17.5" width="164" height="110"/>
+ </operation>
+ <connection to_op="{7967ec98-96c6-45a1-9b93-3b586b619e4e}" dest_name="Scene" from_op="{3e0a25e6-d208-4445-bf7f-6456a9657cca}" src_name="Scene" copy="false"/>
+ <connection to_op="{3e0a25e6-d208-4445-bf7f-6456a9657cca}" dest_name="Scene items" from_op="{14f41f32-cb42-4e9a-af91-238a3e0ccb7a}" src_name="Transform" dest_index="1" copy="false"/>
+ <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Shader" from_op="{40a25797-2222-41d0-aac1-205e3327dd4d}" src_name="Shader" copy="false"/>
+ <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="Clear cached data" from_op="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}" src_name="Dependencies" dest_index="0" copy="false"/>
+ <connection to_op="{6f53e37c-9f51-4e80-b306-7bdadc5a0d23}" dest_name="Model" from_op="{9afdfe84-896f-421f-b1a5-2efc2e6a40d2}" src_name="Mesh model" copy="false"/>
+ <connection to_op="{55ef964a-0ea4-4bc4-8a2e-ac891cc12ff2}" dest_name="Mesh model" from_op="{6f53e37c-9f51-4e80-b306-7bdadc5a0d23}" src_name="Model with RGBA state" copy="false"/>
+ <connection to_op="{424b1eb8-5493-4891-9cfd-2342d1fe5d17}" dest_name="Shader" from_op="{cb8468b7-203f-4c8d-a0b7-0c3953676940}" src_name="Shader" copy="false"/>
+ <connection to_op="{3e0a25e6-d208-4445-bf7f-6456a9657cca}" dest_name="Scene items" from_op="{424b1eb8-5493-4891-9cfd-2342d1fe5d17}" src_name="Mesh model instance" dest_index="0" copy="false"/>
+ <connection to_op="{424b1eb8-5493-4891-9cfd-2342d1fe5d17}" dest_name="MeshModel" from_op="{55ef964a-0ea4-4bc4-8a2e-ac891cc12ff2}" src_name="Mesh model" copy="false"/>
+ <connection to_op="{3e0a25e6-d208-4445-bf7f-6456a9657cca}" dest_name="Scene items" from_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" src_name="Mesh model instance" dest_index="2" copy="false"/>
+ <connection to_op="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}" dest_name="Point Cloud" from_op="{55ef964a-0ea4-4bc4-8a2e-ac891cc12ff2}" src_name="Mesh model" copy="false"/>
+ <connection to_op="{803a286b-3eed-47a5-bb41-10c87936f4e2}" dest_name="MeshModel" from_op="{2dd99ba0-ef05-495f-9f47-0a2d848224d7}" src_name="Output Mesh" copy="false"/>
+</operation>
