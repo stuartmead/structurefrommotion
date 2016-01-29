@@ -118,7 +118,7 @@ namespace RF
         dataDescriptors1_(),
         dataKeypoints2_(),
         dataDescriptors2_(),
-        dataNormType_(RF::NormTypes::NORM_HAMMING2),
+        dataNormType_(NORM_HAMMING2),
         dataDistanceRatio_(0.7),
         dataGoodMatches_(),
         dataDrawMatches_(false),
@@ -170,19 +170,19 @@ namespace RF
 
         int normType;
 
-        if (*dataNormType_ == RF::NormTypes::NORM_L1)
+        if (*dataNormType_ == NORM_L1)
         {
             normType = 2;
         } 
-        else if (*dataNormType_ == RF::NormTypes::NORM_L2)
+        else if (*dataNormType_ == NORM_L2)
         {
             normType = 4;
         }
-        else if (*dataNormType_ == RF::NormTypes::NORM_HAMMING)
+        else if (*dataNormType_ == NORM_HAMMING)
         {
             normType = 6;
         }
-        else if (*dataNormType_ == RF::NormTypes::NORM_HAMMING2)
+        else if (*dataNormType_ == NORM_HAMMING2)
         {
             normType = 7;
         }
