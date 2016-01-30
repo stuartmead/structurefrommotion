@@ -47,7 +47,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "opencv2/opencv.hpp"
 #include "opencv2/core.hpp"
 #include "opencv2/features2d.hpp"
-
+#include "opencv2/cudafeatures2d.hpp"
 
 
 #include "wsmat.h"
@@ -76,6 +76,7 @@ namespace RF
         CSIRO::DataExecution::TypedObject< RF::WSMat >                  dataDescriptors2_;
         CSIRO::DataExecution::TypedObject< RF::NormTypes>               dataNormType_;
         CSIRO::DataExecution::TypedObject< double >                     dataDistanceRatio_;
+        CSIRO::DataExecution::TypedObject< bool >			dataUseCuda_;
         CSIRO::DataExecution::TypedObject< std::vector<cv::DMatch> >    dataGoodMatches_;
         CSIRO::DataExecution::TypedObject< bool >                       dataDrawMatches_;
         CSIRO::DataExecution::TypedObject< QString >                    dataImage1_;
@@ -92,6 +93,7 @@ namespace RF
         CSIRO::DataExecution::InputScalar inputKeypoints2_;
         CSIRO::DataExecution::InputScalar inputDescriptors2_;
         CSIRO::DataExecution::InputScalar inputNormTypes_;
+        CSIRO::DataExecution::InputScalar inputUseCuda_;
         CSIRO::DataExecution::InputScalar inputDistanceRatio_;
         CSIRO::DataExecution::Output      outputGoodMatches_;
         CSIRO::DataExecution::InputScalar  inputDrawMatches_;
@@ -119,6 +121,7 @@ namespace RF
         dataKeypoints2_(),
         dataDescriptors2_(),
         dataNormType_(NORM_HAMMING2),
+        dataUseCuda_(false),
         dataDistanceRatio_(0.7),
         dataGoodMatches_(),
         dataDrawMatches_(false),
@@ -133,6 +136,7 @@ namespace RF
         inputDescriptors2_("Descriptors 2", dataDescriptors2_, op_),
         inputNormTypes_("Distance measurement", dataNormType_, op_),
         inputDistanceRatio_("Lowe Distance Ratio", dataDistanceRatio_, op_),
+        inputUseCuda_("Use CUDA feature detection", dataUseCuda_, op_),
         outputGoodMatches_("Good Matches", dataGoodMatches_, op_),
         inputDrawMatches_("Draw Matches", dataDrawMatches_, op_),
         inputImage1_("Image 1", dataImage1_, op_),
@@ -187,8 +191,26 @@ namespace RF
             normType = 7;
         }
 
-        cv::BFMatcher matcher(normType);
-        matcher.knnMatch(descriptors1,descriptors2,matches,2);
+        if (*dataUseCuda_)
+        {
+            if (cv::cuda::getCudaEnabledDeviceCount() <= 0)
+            {
+                std::cout << QString("ERROR: Cuda is not enabled or cuda devices are unavaliable") + "\n";
+                return false;
+            }
+            Ptr<cv::cuda::DescriptorMatcher> cuMatcherPtr = cv::cuda::DescriptorMatcher::createBFMatcher(normType);
+
+            cv::cuda::GpuMat gpuDesc1,gpuDesc2;
+            gpuDesc1.upload(descriptors1);
+            gpuDesc2.upload(descriptors2);
+            
+            cuMatcherPtr->knnMatch(gpuDesc1, gpuDesc2, matches, 2);
+        }
+        else
+        {
+            cv::BFMatcher matcher(normType);
+            matcher.knnMatch(descriptors1,descriptors2,matches,2);
+        }
         //Nearest neighbour filtering - see Frank Lowe's paper
         for (int i = 0; i < matches.size(); ++i)
         {
